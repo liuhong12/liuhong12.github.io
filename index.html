@@ -3,10 +3,27 @@
 <body>
 <h1>我叫 <span id="myname"></span></h1>
 <p>我的学号是<span id="mynumber"></span></p>
+<a id="bt" href="login.html">去登入</a>
 <img src="timg.jpg" alt="" id="logo">
 <script>
+    $(function(){
+        var callback=function callback(result){
+            $("#myname").text(result.myname);
+            $("#mynumber").text(result.mynumber);
+        }
+        $.ajax({
+            type:"POST",
+            xhrFields:{
+                    withCredentials:true
+                 },
+            url:"http://127.0.0.1:8585/userinfo",
+            contentType:"application/json",
+            //data:{"stunumber":"108888025"},
+            success:callback
+        });
+    })
     $(document).ready(function(){
-        $.get("./data.json",function(result){
+        $.post("http://127.0.0.1:8585//data.json",function(result){
             $("#myname").text(result.myname);
             $("#mynumber").text(result.mynumber);
         })
